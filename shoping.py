@@ -11,6 +11,10 @@
 # 4. 可随时退出，退出时，打印已购买商品和余额
 # 5. 在用户使用过程中，关键输出，如余额，商品加入购物车等消息，需高亮显示
 
+# 扩展需求：
+#   1. 用户下一次登陆后，输入用户名密码，直接回到上次的状态，即上次消费的余额什么的还是那些，再次登陆可继续购买
+#   2. 允许查询之前的消费记录
+
 goods = [
 {"name": "电脑", "price": 1999},
 {"name": "鼠标", "price": 10},
@@ -20,6 +24,7 @@ goods = [
 
 userlist = {"xiaohong": "0", "xiaoming": "1", "xiaojun": "2"}
 surplus = 0
+shoplist = []
 
 while True:
     username = input("请输入您的用户名 :")
@@ -33,13 +38,22 @@ while True:
                 print(str(count)+"."+list(i.values())[0]+"   "+str(list(i.values())[1]))
                 count += 1
             buy_num = input("请选择要购买的商品编号(退出输入q)：")
+
             if buy_num == 'q' or buy_num == 'Q':
                 print("购物车系统已成功退出！")
+                print("----已购买的商品列表----")
+                mylist = set(shoplist)
+                for i in mylist:
+                    print(" %s*%s" % (i, shoplist.count(i)))
+                print("----------------------")
                 exit()
+
             elif int(buy_num) <= 3:
                 commodity = list(goods[int(buy_num)].values())[0]
                 if wages == wages and surplus == 0:
                     surplus = (wages - list(goods[int(buy_num)].values())[1])
+                    shoplist.append(list(goods[int(buy_num)].values())[0])
+
                     print("请您好您已成功购买%s商品，所剩余额%s元。" % (commodity, surplus))
                     continue
 
@@ -49,6 +63,7 @@ while True:
 
                 elif wages != surplus:
                     surplus = (surplus - list(goods[int(buy_num)].values())[1])
+                    shoplist.append(list(goods[int(buy_num)].values())[0])
                     print("请您好您已成功购买%s商品，所剩余额%s元。(退出输入q)" % (commodity, surplus))
                     continue
 
