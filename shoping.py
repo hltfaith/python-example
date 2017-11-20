@@ -36,11 +36,14 @@ while True:
             buy_num = int(input("请选择要购买的商品编号："))
             commodity = list(goods[buy_num].values())[buy_num]
             if buy_num <= 3:
-                if wages == wages and surplus == 0:
+                if surplus < 0:
+                    print("您的余额不足，无法购买商品。请退出程序！")
+                elif wages == wages and surplus == 0:
                     surplus = (wages - list(goods[buy_num].values())[1])
                     print("请您好您已成功购买%s商品，所剩余额%s元。" % (commodity, surplus))
                     continue
                 elif wages != surplus:
+
                     surplus = (surplus - list(goods[buy_num].values())[1])
                     print("请您好您已成功购买%s商品，所剩余额%s元。" % (commodity, surplus))
                     continue
