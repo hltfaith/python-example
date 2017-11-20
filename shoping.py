@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 # Version: 3.6.1
 #  Author: Wu changhao
-#
 
 # 二、 购物车程序：
-# 数据结构：
 
 # 功能要求：
 # 1. 启动程序后，输入用户名密码后，让用户输入工资，然后打印商品列表
@@ -20,7 +18,7 @@ goods = [
 {"name": "美女", "price": 998}
 ]
 
-userlist = {"xiaohong":"0", "xiaoming":"1", "xiaojun":"2"}
+userlist = {"xiaohong": "0", "xiaoming": "1", "xiaojun": "2"}
 surplus = 0
 
 while True:
@@ -34,22 +32,28 @@ while True:
             for i in goods:
                 print(str(count)+"."+list(i.values())[0]+"   "+str(list(i.values())[1]))
                 count += 1
-            buy_num = int(input("请选择要购买的商品编号："))
-            commodity = list(goods[buy_num].values())[buy_num]
-            if buy_num <= 3:
-                if surplus < 0:
-                    print("您的余额不足，无法购买商品。请退出程序！")
-                elif wages == wages and surplus == 0:
-                    surplus = (wages - list(goods[buy_num].values())[1])
-                    print("请您好您已成功购买%s商品，所剩余额%s元。" % (commodity, surplus))
-                    continue
-                elif wages != surplus:
-
-                    surplus = (surplus - list(goods[buy_num].values())[1])
-                    print("请您好您已成功购买%s商品，所剩余额%s元。" % (commodity, surplus))
-                    continue
-            else:
-                print("error")
+            buy_num = input("请选择要购买的商品编号(退出输入q)：")
+            if buy_num == 'q' or buy_num == 'Q':
+                print("购物车系统已成功退出！")
                 exit()
+            elif int(buy_num) <= 3:
+                commodity = list(goods[int(buy_num)].values())[0]
+                if wages == wages and surplus == 0:
+                    surplus = (wages - list(goods[int(buy_num)].values())[1])
+                    print("请您好您已成功购买%s商品，所剩余额%s元。" % (commodity, surplus))
+                    continue
+
+                elif surplus < list(goods[int(buy_num)].values())[1]:
+                    print("您的余额不足，无法购买此商品。请查看其他商品：")
+                    continue
+
+                elif wages != surplus:
+                    surplus = (surplus - list(goods[int(buy_num)].values())[1])
+                    print("请您好您已成功购买%s商品，所剩余额%s元。(退出输入q)" % (commodity, surplus))
+                    continue
+
+            else:
+                print("您所输入的信息有误，请重新输入！")
+                continue
     else:
-        print("对不起，您的用户名或密码有误，请重新输入！")
+        print("对不起，您的用户名或密码有误，请重新输入！(退出输入q)")
