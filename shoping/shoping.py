@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Version: 3.6.1
 #  Author: Wu changhao
+# Please Using username=changhao, password=null
 
 # 二、 购物车程序：
 
@@ -22,20 +23,33 @@ goods = [
 {"name": "美女", "price": 998}
 ]
 
-userlist = {"xiaohong": "0", "xiaoming": "1", "xiaojun": "2"}
 surplus = 0
 shoplist = []
+wages = ''
 
 while True:
+    print("---------------------------------------")
+    print("-          欢迎您登陆购物车系统          -")
+    print("---------------------------------------")
     username = input("请输入您的用户名 :")
     password = input("请输入您的密码 :")
-    if username in userlist and password in userlist.values():
-        wages = int(input("欢迎登陆购物车系统，请输入您的工资："))
+    if username == "changhao" and password == "null":
+        user_check = open('user_surplus.txt').read()
+        user_surplus_length = len(user_check)
+        if user_surplus_length == 0:
+            wages = int(input("欢迎登陆购物车系统，请输入您的工资："))
+        else:
+            user_surplus = open('user_surplus.txt', 'r+', encoding='utf-8')
+            surplus = user_surplus.readline()
+            print("欢迎您\033[1;31m%s\033[0m，再次登陆购物车系统!" % username)
+            print("您的余额剩余\033[1;31m%s元\033[0m" % surplus)
+            user_surplus.close()
+
         while True:
             count = 0
-            print("商品名称"+"  "+"单价")
+            print("商品名称" + "  " + "单价")
             for i in goods:
-                print(str(count)+"."+list(i.values())[0]+"   "+str(list(i.values())[1]))
+                print(str(count) + "." + list(i.values())[0] + "   " + str(list(i.values())[1]))
                 count += 1
             buy_num = input("请选择要购买的商品编号(退出输入q)：")
 
@@ -46,8 +60,11 @@ while True:
                 for i in mylist:
                     print(" %s*%s" % (i, shoplist.count(i)))
                 print("您所剩余额为\033[1;31m %s元 \033[0m " % surplus)
-
+                user_surplus = open('user_surplus.txt', 'w')
+                user_surplus.write(str(surplus))
+                user_surplus.close()
                 print("----------------------")
+                print("欢迎再次光临购物车系统!")
                 exit()
 
             elif int(buy_num) <= 3:
@@ -71,5 +88,6 @@ while True:
             else:
                 print("您所输入的信息有误，请重新输入！")
                 continue
+
     else:
         print("对不起，您的用户名或密码有误，请重新输入！(退出输入q)")
