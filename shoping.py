@@ -45,6 +45,8 @@ while True:
                 mylist = set(shoplist)
                 for i in mylist:
                     print(" %s*%s" % (i, shoplist.count(i)))
+                print("您所剩余额为\033[1;31m %s元 \033[0m " % surplus)
+
                 print("----------------------")
                 exit()
 
@@ -53,8 +55,7 @@ while True:
                 if wages == wages and surplus == 0:
                     surplus = (wages - list(goods[int(buy_num)].values())[1])
                     shoplist.append(list(goods[int(buy_num)].values())[0])
-
-                    print("请您好您已成功购买%s商品，所剩余额%s元。" % (commodity, surplus))
+                    print("请您好您已成功购买\033[1;31m%s\033[0m商品，所剩余额\033[1;31m%s元\033[0m。" % (commodity, surplus))
                     continue
 
                 elif surplus < list(goods[int(buy_num)].values())[1]:
@@ -64,7 +65,7 @@ while True:
                 elif wages != surplus:
                     surplus = (surplus - list(goods[int(buy_num)].values())[1])
                     shoplist.append(list(goods[int(buy_num)].values())[0])
-                    print("请您好您已成功购买%s商品，所剩余额%s元。(退出输入q)" % (commodity, surplus))
+                    print("请您好您已成功购买\033[1;31m%s\033[0m商品，所剩余额\033[1;31m%s\033[0m元。(退出输入q)" % (commodity, surplus))
                     continue
 
             else:
