@@ -56,34 +56,34 @@ menu = {
 while True:
     for i in list(menu):
         print(i)
-    choice = input("请选择要进入的城市，退出程序请输入q：")  # 北京
+    choice = input("请选择要进入的城市，退出程序请输入q：")  #第一级菜单省份
     if choice in list(menu):
 
         while True:
             print('所在的城市: %s，返回上一级请输入b' % choice)
             for i in list(menu[choice]):
                 print(i)
-            choice1 = input("请选择要进入的地区，退出程序请输入q：")  # 海淀
+            choice1 = input("请选择要进入的地区，退出程序请输入q：")  #第二级菜单城市地区
             if choice1 in list(menu[choice]):
 
                 while True:
                     print('所在的城市: %s，返回上一级请输入b' % choice1)
                     for i in list(menu[choice][choice1]):
                         print(i)
-                    choice2 = input("请选择要进入的街道，退出程序请输入q：")  # 五道口
+                    choice2 = input("请选择要进入的街道，退出程序请输入q：")  #第三级菜单街道
                     if choice2 in list(menu[choice][choice1]):
 
                         while True:
                             print('所在的城市: %s，返回上一级请输入b' % choice2)
                             for i in list(menu[choice][choice1][choice2]):
                                 print(i)
-                            choice3 = input("请选择要进入的地方，退出程序请输入q：")  # soho
+                            choice3 = input("请选择要进入的地方，退出程序请输入q：")  #第四级菜单地点
                             if choice3 in list(menu[choice][choice1][choice2]):
 
                                 while True:
                                     print('所在的城市: %s，返回上一级请输入b' % choice2)
                                     print('已是最后一级菜单请返回上一级目录。')
-                                    choice4 = input("请选择要进入的地方，退出程序请输入q：")  # end
+                                    choice4 = input("请选择要进入的地方，退出程序请输入q：")  #进入地点后，返回信息已是最后一级，请返回上一级菜单
                                     if choice4 == 'b':
                                         break
                                     elif choice4 == 'q' or choice == 'Q':
