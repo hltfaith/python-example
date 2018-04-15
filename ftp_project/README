@@ -1,0 +1,33 @@
+
+多用户在线FTP程序
+    已实现功能:
+        1. 用户加密认证
+        2. 允许同时多用户登录
+        3. 每个用户有自己的家目录,且只能访问自己的家目录
+        4. 允许用户查看当前当前目录下文件
+        5. 允许上传和下载
+
+    使用方法:
+        1. 本程序基于linux系统运行
+        2. ubuntu:~/ftp_projectV1/client$ python client.py               # 客户端运行方式
+           ubuntu:~/ftp_projectV1/server/conf$ python server.py          # 服务端运行方式
+        3. 程序默认监听 2128 端口
+
+    程序结构：
+        ├── ftp_projectV1           # ftp主程目录
+        ├── __init__.py
+        ├── server                  # 服务器端目录,包括数据存放和用户信息存放
+        │   ├── __init__.py
+        │   ├── conf                # 主配置文件目录
+        │   │   └── server.py       # 服务端启动文件及socket连接
+        │   │   └── user.py         # 用户上传下载
+        │   │   └── __init__.py
+        │   ├── db
+        │   │   └── user_db         # 存放账户密码目录,采用json格式
+        │   │   └── user_home       # 服务端文件目录
+        │   │   └── __init__.py
+        ├── client                  # 客户端目录,包括用户家目录和客户端启动文件
+        │   ├── __init__.py
+        │   ├── local_home          # 用户家目录
+        │   └── client.py           # 客户端启动文件及socket连接
+        ├── README        # 使用说明
