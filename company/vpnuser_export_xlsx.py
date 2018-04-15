@@ -96,22 +96,34 @@ def extract_user_value():
         jxs_ab_dic[adic] = bdic
         count += 1
 
-    current_user = {}          # 'name':'value'
-    def current_user_data():                # 用户提供经销商用户及状态信息
+    current_user = {}          # 'name':'value'  存放用户和状态
+    current_user_list = []      # 存放重复用户名
+    def current_user_data():                # 用户提供经销商用户及状态信息方法
         yhtg = openpyxl.load_workbook('test.xlsx')
         sheet1 = yhtg.get_sheet_by_name('Sheet1')
 
         aa_list = 0
+        cz_list = 0
+
         for name in jxs_a_list:
             aa_list += 1
+            cz_list += 1
+            #cz_list = str(cz_list) + '重复账号'
             aa_str = 'AA' + str(aa_list)
 
             a_value = sheet1[name].value  # xingming
             if a_value == 'aaaaaaaaa':
                 current_user[aa_str] = aa_str
                 continue
+
+            elif a_value in current_user_list:
+                current_user1 = a_value + str(cz_list) + '重复账号'
+                current_user[current_user1] = '已重复'
+                continue
+
             else:
                 current_user[a_value] = sheet1[jxs_ab_dic[name]].value
+                current_user_list.append(sheet1[name].value)
                 continue
 
     exist_user_list = []            # 收集已存在vpn用户
@@ -134,28 +146,39 @@ def extract_user_value():
 
                 else:
                     #print('\033[1;31m异常error!!!!!!!\033[0m')
-                    pass
+                    exist_user_dict[i] = user_all[i]
+                    #pass
 
-            elif i == None:
+            elif i == 'None':
                 #print(i, "       ", current_user[i], "-------------------------->", i, "       ", user_all[i])
                 exist_user_dict[i] = user_all[i]
 
             else:
                 #print(i, "       ", current_user[i], "--------------------------->", "\033[1;31m黑户!!!!!!\033[0m")
-                exist_user_dict[count11_str] = ''
+                exist_user_dict[i] = '黑户'
 
     def collection_write_excel():
         ws = openpyxl.Workbook()
         ws1 = ws.active
         dest_filename = 'jxs_user_sum.xlsx'
 
-        num1 = 1
+        num1 = 0
         for name in exist_user_dict:        # 将用户提供跟数据库对比部分 写入excel
+            num1 += 1
+            c = ('C' + str(num1))
+            d = ('D' + str(num1))
+            # print(name,"---------------------------->",num1)
+            ws1[c] = name
+            ws1[d] = exist_user_dict[name]
+
+        num1 = 0
+        for name in exist_user_dict:        # 将用户提供跟数据库对比部分 写入excel
+            num1 += 1
             c = ('C' + str(num1))
             d = ('D' + str(num1))
             ws1[c] = name
             ws1[d] = exist_user_dict[name]
-            num1 += 1
+
 
         not_exist_user_dict = {}
         for name in user_all:               # 将剩余用户存放到字典中
@@ -182,7 +205,7 @@ def extract_user_value():
             num2 += 1
 
         num3 = 1
-        for name in cydw_user_dict:  # 将经销商用户写入E、F列
+        for name in cydw_user_dict:  # 将成员单位用户写入E、F列
             e = ('E' + str(num3))
             f = ('F' + str(num3))
             ws1[e] = name
