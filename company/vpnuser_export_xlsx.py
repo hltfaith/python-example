@@ -215,7 +215,6 @@ def extract_user_value():
         ws.save(dest_filename)
         print("VPN用户信息导出成功！！！")
 
-
     def start():
         user_all_data()
         current_user_data()
@@ -227,6 +226,230 @@ def extract_user_value():
 
     return start()
 
+def export_cgdw_xlsx():
+
+    cydw_user = []
+    cydw_user_status = []
+    other_cydw = []
+    other_cydw_status = []
+
+    def select_cydw():
+        wb = openpyxl.load_workbook('cydw.xlsx')
+        sheet = wb.get_sheet_by_name('Sheet1')
+
+        a_list = []  # 存放 excel A1-2317
+        for i in range(2317):
+            i += 1
+            ai = ('A' + str(i))
+            a_list.append(ai)
+
+        b_list = []
+        for k in range(2317):  # 存放 excel B1-2317
+            k += 1
+            bk = ('B' + str(k))
+            b_list.append(bk)
+
+        ab_dic = {}  # 存放excel A1-4098, H1-4098    ---> 'A1':'H1'
+        count = 1
+        while count <= 2317:
+            adic = ('A' + str(count))
+            bdic = ('B' + str(count))
+            ab_dic[adic] = bdic
+            count += 1
+
+        for name in a_list:
+            a_value = sheet[name].value
+            match = re.findall('\D', str(a_value))
+
+            if match:
+                cydw_user.append(a_value)
+                cydw_user_status.append(sheet[ab_dic[name]].value)   # B1 A1
+            else:
+                other_cydw.append(a_value)
+                other_cydw_status.append(sheet[ab_dic[name]].value)
+
+    select_cydw()
+
+    def export_cydw():
+
+        ws = openpyxl.Workbook()
+        ws1 = ws.active
+        dest_filename = 'cydw1.xlsx'
+
+        cydw_num = 1                    # A列 成员单位用户名
+        for name1 in cydw_user:
+            a = ('A' + str(cydw_num))
+            ws1[a] = name1
+            cydw_num += 1
+
+        cydw_status = 1                 # B列 成员单位用户状态
+        for value1 in cydw_user_status:
+            b = ('B' + str(cydw_status))
+            ws1[b] = value1
+            cydw_status += 1
+
+        other_cydw_num = 1              # C列 成员单位用户名
+        for name2 in other_cydw:
+            a = ('C' + str(other_cydw_num))
+            ws1[a] = name2
+            other_cydw_num += 1
+
+        other_cydw_value = 1            # D列 成员单位用户状态
+        for value2 in other_cydw_status:
+            b = ('D' + str(other_cydw_value))
+            ws1[b] = value2
+            other_cydw_value += 1
+
+        ws.save(dest_filename)
+        print("成员单位用户信息导出成功！！！ 新文件 ---> %s" % dest_filename)
+
+    export_cydw()
+
+def diff_cms_user():
+
+    def select_cms():
+        wb = openpyxl.load_workbook('cmsuser.xlsx')
+        sheet = wb.get_sheet_by_name('Sheet1')
+
+        a_list = []  # 存放 excel A1-2005
+        for i in range(2005):
+            i += 1
+            ai = ('A' + str(i))
+            a_list.append(ai)
+
+        ab_dic = {}  # 存放excel A1-2005, B1-2005    ---> 'A1':'B1'
+        count = 1
+        while count <= 2005:
+            adic = ('A' + str(count))
+            bdic = ('B' + str(count))
+            ab_dic[adic] = bdic
+            count += 1
+
+        # {'公司':{'changhao':'status'}}
+        # cms 2005
+        # cms_tongji 1771
+
+        # 1. 现有经销商与总表对比
+
+        zong_cms_dict = {}                  # 账号，公司名
+        for name in a_list:
+            a_value = sheet[name].value
+            b_value = sheet[ab_dic[name]].value
+            zong_cms_dict[a_value] = b_value
+
+        current_cms_dict = {}           # 账号，状态
+        def diff_current_cms():
+            wb = openpyxl.load_workbook('jryg.xlsx')
+            sheet = wb.get_sheet_by_name('Sheet1')
+
+            a_list = []  # 存放 excel A1-1771
+            for i in range(1771):
+                i += 1
+                ai = ('A' + str(i))
+                a_list.append(ai)
+
+            ab_dic = {}  # 存放excel A1-1771, B1-1771    ---> 'A1':'B1'
+            count = 1
+            while count <= 1771:
+                adic = ('A' + str(count))
+                bdic = ('B' + str(count))
+                ab_dic[adic] = bdic
+                count += 1
+
+            for name in a_list:
+                a_value = sheet[name].value
+                b_value = sheet[ab_dic[name]].value    # 状态
+                current_cms_dict[a_value] = b_value
+
+        diff_current_cms()
+
+        # 1.当前用户
+        comp_user = {}          # {'公司名称':'账号'}
+        not_found_user = {}     # {'账号': '状态'}
+        for i in current_cms_dict:         # 账号
+            if i in zong_cms_dict.keys():  # 账号
+                comp_user[zong_cms_dict[i]] = i  # 公司名 账号
+            else:
+                not_found_user[i] = current_cms_dict[i]
+
+        # 1. 将总表剩余的用户过滤出来
+        zong_free_cms = {}  # {'公司名称':'账号'}
+        for i in zong_cms_dict:   # 账号
+            if i in comp_user.values():
+                pass
+            else:
+                zong_free_cms[zong_cms_dict[i]] = i # 公司名, 账号
+
+        def export_cms():
+
+            def export_current_cms():       #导出当前cms用户的excel数据
+                ws = openpyxl.Workbook()
+                ws1 = ws.active
+                dest_filename = 'cureent_cms1.xlsx'
+
+                # 写入当前cms用户格式  公司名 账号 状态
+
+                cydw_num = 1  # A列 公司名
+                for name1 in comp_user:
+                    a = ('A' + str(cydw_num))
+                    ws1[a] = name1
+                    cydw_num += 1
+
+                cydw_status = 1  # B列 账号
+                for value1 in comp_user.values():
+                    b = ('B' + str(cydw_status))
+                    ws1[b] = value1
+                    cydw_status += 1
+
+                other_cydw_num = 1  # C列 状态
+                for name2 in comp_user:     # 公司名称
+                    a = ('C' + str(other_cydw_num))
+                    ws1[a] = current_cms_dict[comp_user[name2]]
+                    other_cydw_num += 1
+
+                other_cydw_value = 1  # D列 成员单位用户状态
+                for value2 in not_found_user:
+                    b = ('D' + str(other_cydw_value))
+                    ws1[b] = value2
+                    other_cydw_value += 1
+
+                other_cydw_value1 = 1  # E列 成员单位用户状态
+                for value2 in not_found_user.values():
+                    b = ('E' + str(other_cydw_value1))
+                    ws1[b] = value2
+                    other_cydw_value1 += 1
+
+                ws.save(dest_filename)
+                print("当前cms用户信息导出成功！！！ 新文件 ---> %s" % dest_filename)
+            export_current_cms()
+
+            def export_free_cms():          #导出总表与当前cms用户比对后的数据
+                ws = openpyxl.Workbook()
+                ws1 = ws.active
+                dest_filename = 'zong_free_cms1.xlsx'
+
+                cydw_num = 1  # A列 公司名
+                for name1 in zong_free_cms:
+                    a = ('A' + str(cydw_num))
+                    ws1[a] = name1
+                    cydw_num += 1
+
+                cydw_status = 1  # B列 账号
+                for value1 in zong_free_cms.values():
+                    b = ('B' + str(cydw_status))
+                    ws1[b] = value1
+                    cydw_status += 1
+
+                ws.save(dest_filename)
+                print("总表剩余cms用户信息导出成功！！！ 新文件 ---> %s" % dest_filename)
+            export_free_cms()
+
+        export_cms()
+
+    select_cms()
+
+
+
 if __name__ == '__main__':
 
     menu = ('''
@@ -234,6 +457,8 @@ if __name__ == '__main__':
         1.导出 --> 经销商用户
         2.导出 --> 成员单位用户
         3.数据库与当前数据对比
+        4.成员单位用户导出
+        5.CMS账户与公司名称对比
     ''')
 
     while True:
@@ -251,6 +476,14 @@ if __name__ == '__main__':
 
         elif choice == 3:
             extract_user_value()
+            break
+
+        elif choice == 4:
+            export_cgdw_xlsx()
+            break
+
+        elif choice == 5:
+            diff_cms_user()
             break
 
         else:
