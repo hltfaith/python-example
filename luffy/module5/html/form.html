@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>表单标签</title>
+</head>
+<body>
+	<input type="button" onclick="addclick()">111</input>
+	<!-- 
+		表单是一个包含表单的区域
+		表单元素是允许用户在表单中输入内容，比如文本域，输入框，单选框()
+	 -->
+	<form action="http://www.baidu.com" method="get">
+		<!-- input -->
+		<!-- 文本框 -->
+		<p>
+			用户名称：
+			<input type="text" name="txtUsername" value="请输入用户名称" readonly>
+		</p>
+
+		<p>
+			用户密码：
+			<input type="password" name="txtUserpwd">
+		</p>
+
+		<p>
+			确认密码：
+			<input type="password" name="txtcfmpwd" disabled>
+		</p>
+
+		<!-- 单选框 -->
+		<p>
+			用户性别：
+			<input type="radio" name="sexrdo" value="男">男
+			<input type="radio" name="sexrdo" value="女" checked="">女
+		</p>
+
+		<!-- 复选框 -->
+		<p>
+			用户爱好:吃
+			<input type="checkbox" name="chkhobby" value="吃" checked>喝
+			<input type="checkbox" name="chkhobby" value="喝" >玩
+			<input type="checkbox" name="chkhobby" value="玩" >乐
+			<input type="checkbox" name="chkhobby" value="乐" checked>
+		</p>
+		
+		<!-- 按钮 -->
+		<p>
+			<input type="submit" name="btnsbt" value="提交">
+			<input type="reset" name="btnsbt" value="重置">
+			<input type="button" name="btnsbt" value="普通按钮">
+		</p>	
+	
+		<!-- 文本选择框 -->
+		<p>
+			请上传文件：
+			<input type="file" name="txtfile">
+		</p>
+
+		<!-- textarea -->
+		<p>
+			自我介绍:
+			<textarea name="txt" cols="20" rows="5"></textarea>
+		</p>
+
+		<!-- 选择框 -->
+		<!-- 滚动列表 multiple设置以后实现多选效果, ctrl+鼠标左键进行多选 -->
+		<p>籍贯：
+			<select name="scl" size="3" multiple>
+				<option value="深圳">深圳</option>
+				<option value="北京">北京</option>
+				<option value="上海">上海</option>
+				<option value="广州" selected>广州</option>
+			</select>
+		</p>
+
+		<!-- 下拉列表 -->
+		<p>意向工作的城市：
+			<select name="scl">
+				<option value="深圳">深圳</option>
+				<option value="北京">北京</option>
+				<option value="上海">上海</option>
+				<option value="广州" selected>广州</option>
+			</select>
+		</p>
+	</form>
+</body>
+</html>
