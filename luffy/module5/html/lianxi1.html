@@ -1,0 +1,189 @@
+<!doctype html>
+<html>
+
+<head lang="en">
+	<title>标题信息</title>
+	<!-- <meta charset="utf-8"> -->
+	
+	<!-- 重定向 2秒后跳转到相应的网址 -->
+	<!-- <meta http-equiv="refresh" content="2; URL=http://www.luffycity.com"> -->
+	<!-- 指定文档的内容类型和编码类型 -->
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta http-equiv="x-ua-compatible" content="IE=edge">
+
+	<meta name="keywords" content="meta总结, html meata, meta属性, meta跳转">
+	<meta name="description" content="路飞学成">
+
+	<link rel="icon" href="fav.icon">
+	<link rel="stylesheet" href="mystyle.css">
+
+	<style type="text/css"></style>
+	<script src="myscript.js"></script>
+</head>
+
+<body>
+	
+	<div>
+
+		<p>
+			空&nbsp;格<br>
+			大于号&gt;<br>
+			小于号&lt;<br>
+			安得符号&amp;<br>
+			人民币符号&yen;<br>
+			版权号&copy;
+			注册号&reg;
+		</p>
+
+	</div>
+
+	<div id="wrap">
+		<p style="height: 500px" id="p1">段落</p>
+
+	</div>
+
+	<div class="p1">
+		<!-- 这里是我的注释 -->
+
+		<div>
+			二狗子<span>,我叫二狗子</span>
+		</div>
+		<p>
+			你说什么就是什么啦，与我没关系了，反正我是个男的</a>
+		</p>
+
+		<div>
+			三帽子，<span>我叫三帽子</span>
+		</div>
+		<p>
+			我反对，我觉得wusir神帅
+		</p>
+
+	</div>
+	
+	<h1>一级标签</h1>
+	<h2>二级标签</h2>
+	<h3>三级标签</h3>
+	<h4>四级标签</h4>
+	<h5>五级标签</h5>
+	<h6>六级标签</h6>
+	<p>
+
+		<sub>今天</sub>，我很<sup>高兴</sup>，<strong>学习</strong>了<b>html</b>语言，今后还要学习<i>css</i>和<u>javascript</u>以及<s>jquery</s>等语言。
+
+	</p>
+
+
+	<div>
+		<a href="http://www.baidu.com" target="_blank" title="路飞学成">路飞学成</a>
+		<a href="fav.zip">下载包</a>
+		<a href="mailto:wu_chang_hao@qq.com">联系我们</a>
+
+		<!-- 返回网页顶部 -->
+		<a href="#">跳转到顶部</a>
+		<a href="#p1">跳转到p1</a>
+
+		<!-- javascript:是表示在触发<a>默认动作时,执行一段javascript代码，而javascript:;表示什么都不执行，这样点击<a>是就没有任何反应 -->
+		<a href="javascript:alert(1)">内容</a>
+		<a href="javascript:">内容1</a>
+
+	</div>
+
+
+	<div>
+
+		<!-- 无序列表 type可以定义无序列表的样式 -->
+		<ul type="none">
+			<li>我的账单</li>
+			<li>我的账户</li>
+			<li>我的收藏</li>
+			<li>我的优惠卷</li>
+		</ul>
+
+		<ol type="a">
+			<li>我的账单</li>
+			<li>我的账户</li>
+			<li>我的收藏</li>
+			<li>我的优惠卷</li>
+		</ol>
+
+	</div>
+
+	<div>
+		<hr>
+		<span>与行内元素展示的标签</span><br>
+		<img src="index1.png" alt="图片加载失败时显示的内容" title="显示图片" style="height: 200px;width: 300px" />
+
+	</div>
+
+	<div name="table">
+		<table border="1" cellspacing="0">
+			<!-- 表格头 -->
+			<thead>
+				<!-- 表格行 -->
+				<tr>
+					<!-- 表格列，注意这里使用的是th -->
+					<th></th>
+					<th>星期一</th>
+					<th>星期二</th>
+					<th>星期三</th>
+					<th>星期四</th>
+					<th>星期五</th>
+				</tr>
+			</thead>
+			<!-- 表格主体 -->
+			<tbody>
+				<!-- 表格行 -->
+				<tr>
+					<!-- 表格列 注意这里使用的是td -->
+					<td rowspan="3">上午</td>
+					<td>语文</td>
+					<td>数学</td>
+					<td>英语</td>
+					<td>生物</td>
+					<td>化学</td>
+				</tr>
+				<tr>
+					<!-- 表格列 注意这里使用的是td -->
+					<td>语文</td>
+					<td>数学</td>
+					<td>英语</td>
+					<td>生物</td>
+					<td>化学</td>
+				</tr>
+				<tr>
+					<!-- 表格列 注意这里使用的是td -->
+					<td>语文</td>
+					<td>数学</td>
+					<td>英语</td>
+					<td>生物</td>
+					<td>化学</td>
+				</tr>
+				<tr>
+					<!-- 表格列 注意这里使用的是td -->
+					<td rowspan="2">下午</td>
+					<td>语文</td>
+					<td>数学</td>
+					<td>英语</td>
+					<td>生物</td>
+					<td>化学</td>
+				</tr>
+				<tr>
+					<!-- 表格列 注意这里使用的是td -->
+					<td>语文</td>
+					<td>数学</td>
+					<td>英语</td>
+					<td>生物</td>
+					<td>化学</td>
+				</tr>
+			</tbody>
+			<!-- 表格底部 -->
+			<tfoot>
+				<tr>
+					<td colspan="6">课程表</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</body>
+</html>
