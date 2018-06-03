@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>伪类选择器</title>
+		<style type="text/css">
+			
+			/*没有被访问的a标签的样式*/
+			.box ul li.item1 a:link{
+				
+				color: #666;
+			}
+			
+			.box ul li.item2 a:visited{
+				
+				color: yellow;
+			}
+			
+			.box ul li.item3 a:hover{
+				
+				color: green;
+			}
+			
+			.box ul li.item4 a:active{
+				color: yellowgreen;
+			}
+			
+			/*选中第一个元素*/
+			div ul li:first-child{
+				font-size: 20px;
+				color: red;
+			}
+			
+			/*选中最后一个元素*/
+			div ul li:last-child{
+				font-size:20px;
+				color: yellow;
+			}
+			
+			/*选中当前指定的元素  数值从1开始*/
+			div ul li:nth-child(3){
+				font-size: 30px;
+				color: purple;
+			}
+			
+			/*n表示选中所有 从0开始的  0的时候表示没有选中*/
+			div ul li:nth-child(n){
+				font-size: 40px;
+				color: red;
+			}
+			
+			/*偶数*/
+			div ul li:nth-child(2n){
+				font-size: 20px;
+				color: green;
+			}
+			
+			/*奇数*/		
+			div ul li:nth-child(2n-1){
+				font-size: 20px;
+				color: red;
+			}
+			
+			/*隔几换色  隔行换色*/
+			div ul li:nth-child(5n+1){
+				font-size: 50px;
+				color: red;
+			}
+			
+			
+		</style>
+	</head>
+	<body>
+		
+		<div class="box">
+			<ul>
+				<li class="item1">
+					1
+					<a href="#">张三</a>
+				</li>
+				<li class="item2">
+					2
+					<a href="#">李四</a>
+				</li>
+				<li class="item3">
+					3
+					<a href="#">王八</a>
+				</li>
+				<li class="item4">
+					4
+					<a href="#">赵六</a>
+				</li>
+				<li class="item4">
+					5
+					<a href="#">赵六</a>
+				</li>
+				<li class="item4">
+					6
+					<a href="#">赵六</a>
+				</li>
+				<li class="item4">
+					7
+					<a href="#">赵六</a>
+				</li>
+				<li class="item4">
+					8
+					<a href="#">赵六</a>
+				</li>
+				<li class="item4">
+					9
+					<a href="#">赵六</a>
+				</li>
+				<li class="item4">
+					10
+					<a href="#">赵六</a>
+				</li>
+			</ul>
+		</div>
+
+	</body>
+</html>
