@@ -1,0 +1,47 @@
+
+
+上传
+    客户端
+        1. put localfilename
+
+进度条
+cd
+    /home/alex
+    /home/egon
+
+
+
+    os.chdir(/home/alex/data/)
+
+    self.current_dir = /home/alex
+    self.current_dir = /home/egon
+
+
+    cd /home/alex/test/log/
+    current_dir = /home/alex/test/log/
+    ls
+    dir /home/alex/test/log/
+
+ls
+
+mkdir
+del
+pwd
+断点续传
+    1. 检查是否有未正常传输完的文件
+        1.1 如果有，提示是否续传
+            1.1。1 把文件名+大小+文件路径 发给服务器端
+            1.1.2 服务器端 按照客户端 数据找到文件
+                1.1.2.1 如果找不到，返回错误
+                1.1.2.2 找到了，返回准备发送文件的消息
+                1.1.2.3 打开文件，Seek到指定位置，开始发送。。。。
+
+    2. a b c
+
+
+a.download  3000 5000
+a 8000
+
+f1   80000
+f1   80000
+f1   80000

@@ -1,0 +1,17 @@
+
+
+
+
+用户认证
+    configparser
+    hashlib
+
+多用户
+每个用户有自己的家目录
+用户可以在自己的家目录 进行目录切换
+dir 用户可以查看当前目录的文件列表，文件名，文件大小
+get file
+put file
+进度条展示
+del file
+mkdir dir
