@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <style>
+        .container{
+            margin-top: 100px;
+        }
+
+        .btn{
+            margin-top: 10px;
+        }
+
+    </style>
+
+</head>
+<body>
+    <h3>编辑资源</h3>
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-6 col-md-offset-3">
+                <form action="" method="post">
+
+                 {% csrf_token %}
+
+                 <div>
+                     <label for="">设备名称</label>
+                     <input type="text" class="form-control" name="hostname" value="{{ asset_obj.hostname }}">
+                 </div>
+
+                 <div>
+                     <label for="">IP地址</label>
+                     <input type="text" class="form-control" name="ip_addr" value="{{ asset_obj.ip_addr }}">
+                 </div>
+
+                 <div>
+                     <label for="">用户名</label>
+                     <input type="text" class="form-control" name="username" value="{{ asset_obj.username }}">
+                 </div>
+
+                 <div>
+                     <label for="">密码</label>
+                     <input type="text" class="form-control" name="password" value="{{ asset_obj.password }}">
+                 </div>
+
+                  <div>
+                     <label for="">设备型号</label>
+                     <input type="text" class="form-control" name="model" value="{{ asset_obj.model }}">
+                 </div>
+
+                 <div>
+                     <label for="">SN号</label>
+                     <input type="text" class="form-control" name="sn" value="{{ asset_obj.sn }}">
+                 </div>
+
+                 <div>
+                     <label for="">位置</label>
+                     <input type="text" class="form-control" name="local" value="{{ asset_obj.local }}">
+                 </div>
+
+                 <div>
+                     <label for="">资源类型</label>
+                     <input type="text" class="form-control" name="resource_type" value="{{ asset_obj.resource_type }}">
+                 </div>
+
+                 <div>
+                     <label for="">端口</label>
+                     <input type="text" class="form-control" name="port" value="{{ asset_obj.port }}">
+                 </div>
+
+                 <div>
+                     <label for="">系统版本</label>
+                     <input type="text" class="form-control" name="system_version" value="{{ asset_obj.system_version }}">
+                 </div>
+
+                 <div>
+                     <label for="">所属组</label>
+                     <input type="text" class="form-control" name="group" value="{{ asset_obj.group }}">
+                 </div>
+
+                 <input type="submit" class="btn btn-success pull-right">
+
+             </form>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+</html>
