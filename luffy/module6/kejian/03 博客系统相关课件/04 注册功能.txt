@@ -1,0 +1,109 @@
+基于forms组件和Ajax实现注册功能
+
+
+
+
+1 基于forms组件设计注册页面
+
+
+   ---点击头像＝＝＝点击input
+
+   ---头像预览：
+      1 获取用户选中的文件对象
+      2 获取文件对象的路径
+      3 修改img的src属性 ，src=文件对象的路径
+
+2 错误信息：
+   
+   views：
+
+       form.erorrs # {"user":[......]}
+
+    Ajax.success:
+       $.each(data.msg, function (field, error_list) {
+                     
+                        $("#id_" + field).next().html(error_list[0]);
+                        $("#id_" + field).parent().addClass("has-error");
+
+                    })
+
+3 局部钩子和全局钩子校验
+   user字段不能重复
+   两次密码不一致
+
+
+4 FileField与ImageFiled
+
+
+
+  class UserInfo(AbstractUser):
+      
+      nid = models.AutoField(primary_key=True)
+      telephone = models.CharField(max_length=11, null=True, unique=True)
+      avatar = models.FileField(upload_to='avatars/', default="/avatars/default.png")
+      
+  avatar_obj=request.FILES.get("avatar")
+  user_obj=UserInfo.objects.create_user(username=user,password=pwd,email=email,avatar=avatar_obj)
+
+  Dajngo实现：
+
+      会将文件对象下载到项目的根目录中avatars文件夹中（如果没有avatar文件夹，Django会自动创建）,user_obj的avatar存的是文件的相对路径。
+
+
+     
+5 Media 配置之MEDIA_ROOT：
+
+Dajngo有两种静态文件：
+
+     ／static／    ：  js，css，img
+     ／media/      :   用户上传文件
+
+class UserInfo(AbstractUser):
+      
+      nid = models.AutoField(primary_key=True)
+      telephone = models.CharField(max_length=11, null=True, unique=True)
+      avatar = models.FileField(upload_to='avatars/', default="/avatars/default.png")
+
+
+    avatar_obj=request.FILES.get("avatar")
+  user_obj=UserInfo.objects.create_user(username=user,password=pwd,email=email,avatar=avatar_obj)
+    
+
+    一旦配置了
+        MEDIA_ROOT=os.path.join(BASE_DIR,"media")
+
+    Dajngo实现：
+
+      会将文件对象下载到MEDIA_ROOT中avatars文件夹中（如果没有avatar文件夹，Django会自动创建）,user_obj的avatar存的是文件的相对路径。
+
+
+6 Media 配置之MEDIA_URl：
+
+   浏览器如何能直接访问到media中的数据
+
+
+   settings.py:
+      MEDIA_URL="/media/"
+
+   urls.pt:
+      # media配置:
+      re_path(r"media/(?P<path>.*)$",serve,{"document_root":settings.MEDIA_ROOT})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

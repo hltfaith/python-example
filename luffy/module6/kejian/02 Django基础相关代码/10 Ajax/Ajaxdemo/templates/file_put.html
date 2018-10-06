@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"></script>
+
+</head>
+<body>
+
+<h3>简单的form</h3>
+
+<form action="" method="post">
+    用户名<input type="text" name="user">
+    密码<input type="password" name="pwd">
+    <input type="submit">
+</form>
+
+
+<h3>基于form表单的文件上传</h3>
+
+<form action="" method="post" enctype="multipart/form-data">
+     用户名<input type="text" name="user">
+     头像  <input type="file" name="avatar">
+    <input type="submit">
+</form>
+
+<h3> 基于Ajax文件上传</h3>
+
+<form action="" method="post">
+    用户名<input type="text" id="user">
+    头像  <input type="file" id="avatar">
+    <input type="button" class="btn" value="Ajax">
+</form>
+
+
+
+<script>
+
+{##}
+{#    $(".btn").click(function(){#}
+{##}
+{#        $.ajax({#}
+{#            url:"",#}
+{#            type:"post",#}
+{#            contentType:"application/json",#}
+{#            data:JSON.stringify({#}
+{#                a:1,#}
+{#                b:2#}
+{#            }),#}
+{#            success:function(data){#}
+{#                console.log(data)#}
+{#            }#}
+{#        })#}
+{##}
+{##}
+{##}
+{#    })#}
+{#    #}
+
+
+
+{#    $(".btn").click(function(){#}
+{##}
+{#        $.ajax({#}
+{#            url:"",#}
+{#            type:"post",#}
+{#            data:{#}
+{#                a:1,#}
+{#                b:2#}
+{#            },#}
+{#            success:function(data){#}
+{#                console.log(data)#}
+{#            }#}
+{#        })#}
+{##}
+{#    })#}
+
+
+
+
+
+    // ajax上传文件
+    $(".btn").click(function(){
+
+        var formdata=new FormData();
+        formdata.append("user",$("#user").val());
+        formdata.append("avatar",$("#avatar")[0].files[0]);
+
+        $.ajax({
+            url:"",
+            type:"post",
+            contentType:false,
+            processData:false,
+            data:formdata,
+            success:function(data){
+                console.log(data)
+            }
+        })
+    })
+</script>
+
+
+
+
+</body>
+</html>

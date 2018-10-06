@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="/static/blog/css/home_site.css">
+    <link rel="stylesheet" href="/static/theme/{{ blog.theme }}">
+    <link rel="stylesheet" href="/static/blog/css/article_detail.css">
+    <link rel="stylesheet" href="/static/blog/bs/css/bootstrap.css">
+    <script src="/static/js/jquery-3.2.1.min.js"></script>
+
+</head>
+<body>
+
+<div class="header">
+    <div class="content">
+        <p class="title">
+            <span>{{ blog.title }}</span>
+            <a href="/cn_backend/" class="backend">管理</a>
+        </p>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 menu">
+             {% load my_tags %}
+             {% get_classification_style username %}
+        </div>
+        <div class="col-md-9">
+            {% block content %}
+
+            {% endblock %}
+        </div>
+    </div>
+</div>
+
+
+
+
+
+</body>
+</html>

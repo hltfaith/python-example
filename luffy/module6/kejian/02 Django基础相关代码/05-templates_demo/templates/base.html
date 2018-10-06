@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+    <title>base</title>
+    {% endblock %}
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            width: 100%;
+            height: 50px;
+            background-color: #369;
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="header"></div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            {% include 'advertise.html' %}
+        </div>
+        <div class="col-md-9">
+             
+            {% block con %}
+              <h4>content</h4>
+            {% endblock %}
+            
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

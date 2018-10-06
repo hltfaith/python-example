@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/blog/bs/css/bootstrap.css">
+
+</head>
+<body>
+<h3>登录页面</h3>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-lg-offset-3">
+
+            <form>
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="user">用户名</label>
+                    <input type="text" id="user" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">密码</label>
+                    <input type="password" id="pwd" class="form-control">
+                </div>
+
+
+                <div class="form-group">
+                    <label for="pwd">验证码</label>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="valid_code">
+                        </div>
+                        <div class="col-md-6">
+                            <img width="270" height="36" id="valid_code_img" src="/get_validCode_img/" alt="">
+                        </div>
+                    </div>
+                </div>
+
+
+                <input type="button" class="btn btn-default login_btn" value="submit"><span class="error"></span>
+                <a href="/register/" class="btn btn-success pull-right">注册</a>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+<script src="/static/js/jquery-3.2.1.min.js"></script>
+<script>
+
+    // 刷新验证码
+    $("#valid_code_img").click(function () {
+
+        $(this)[0].src += "?"
+
+    });
+
+    // 登录验证
+    $(".login_btn").click(function () {
+
+
+        $.ajax({
+            url: "",
+            type: "post",
+            data: {
+                user: $("#user").val(),
+                pwd: $("#pwd").val(),
+                valid_code: $("#valid_code").val(),
+                csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val(),
+            },
+            success: function (data) {
+                console.log(data);
+
+                if (data.user) {
+                    if (location.search){
+                        location.href = location.search.slice(6)
+                    }
+                    else {
+                         location.href = "/index/"
+                    }
+
+                }
+                else {
+                    $(".error").text(data.msg).css({"color": "red", "margin-left": "10px"});
+                    setTimeout(function(){
+                         $(".error").text("");
+                    },1000)
+
+                }
+            }
+        })
+
+    })
+
+</script>
+</body>
+</html>

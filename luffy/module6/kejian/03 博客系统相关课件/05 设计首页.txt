@@ -1,0 +1,18 @@
+设计系统首页（文章列表渲染）
+
+
+admin（不是必需的）:
+    Django内部的一个组件：后台数据管理组件（web页面）
+
+
+
+    python manage.py createsuperuser    针对用户认证组件对应的用户表
+
+
+    admin注册：
+       admin.site.register(models.UserInfo)
+
+    
+
+
+

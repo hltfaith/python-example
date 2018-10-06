@@ -1,0 +1,76 @@
+
+
+文章详情页
+
+ 1  文章详情页的渲染
+
+ 2 点赞与踩灭
+
+   点赞人即当前登录人
+
+
+ 3 评论
+
+   评论人即当前登录人
+
+   根评论：对文章的评论
+
+
+   子评论：对评论的评论
+
+
+   区别：是否有父评论
+   
+
+   评论流程：
+
+       1 构建样式
+
+       2 提交根评论
+
+       3 显示根评论
+             －－－render显示
+
+             －－－Ajax显示
+
+       4 提交子评论
+
+
+       5 显示子评论
+             －－－render显示2
+
+             －－－Ajax显示
+
+       6 评论树的显示
+
+       111
+          444 
+             555  
+
+
+       222
+       333
+
+
+    7 事务操作
+       
+            from django.db import transaction
+        with transaction.atomic():
+             pass
+
+
+    8 发送邮件
+
+        EMAIL_HOST = 'smtp.exmail.qq.com'  # 如果是 163 改成 smtp.163.com
+      EMAIL_PORT = 465
+      EMAIL_HOST_USER = ''           # 帐号
+      EMAIL_HOST_PASSWORD = ''  # 密码
+      DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+      EMAIL_USE_SSL = True
+
+
+
+
+
+     
+

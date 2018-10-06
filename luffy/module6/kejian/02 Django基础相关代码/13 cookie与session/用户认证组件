@@ -1,0 +1,68 @@
+
+
+
+
+
+    用户认证组件：
+
+         功能：用session纪录登陆验证状态
+
+         前提：用户表：dajngo自带的auth_user
+         
+         创建超级用户：python3 manage.py createsuperuser
+
+
+         API:
+            from django.contrib import auth :
+
+	            1 # if 验证成功返回user对象,否则返回None                            
+	     		  user=auth.authenticate(username=user,password=pwd)    
+
+	     		2 auth.login(request,user)   # request.user:当前登录对象 
+
+	     		3 auth.logout(request)    
+
+	        from django.contrib.auth.models import User # User==auth_user
+
+	            4 request.user.is_authenticated() 
+
+	            5 user = User.objects.create_user（username='',password='',email=''）
+
+
+	        补充：
+	           匿名用户对象：
+	                匿名用户
+				    class models.AnonymousUser
+
+				    django.contrib.auth.models.AnonymousUser 类实现了django.contrib.auth.models.User 接口，但具有下面几个不同点：
+
+				    id 永远为None。
+				    username 永远为空字符串。
+				    get_username() 永远返回空字符串。
+				    is_staff 和 is_superuser 永远为False。
+				    is_active 永远为 False。
+				    groups 和 user_permissions 永远为空。
+				    is_anonymous() 返回True 而不是False。
+				    is_authenticated() 返回False 而不是True。
+				    set_password()、check_password()、save() 和delete() 引发 NotImplementedError。
+				    New in Django 1.8:
+				    新增 AnonymousUser.get_username() 以更好地模拟 django.contrib.auth.models.User。
+
+
+            总结：
+
+                 
+                     if not: auth.login(request,user)   request.user == AnonymousUser()
+
+                     else:request.user==登录对象
+                     request.user是一个全局变量
+
+                     在任何视图和模板直接使用
+
+
+
+
+
+
+
+

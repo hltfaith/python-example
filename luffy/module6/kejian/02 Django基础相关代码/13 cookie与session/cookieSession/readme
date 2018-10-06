@@ -1,0 +1,56 @@
+
+
+
+
+1 response.set_cookie(key,value)
+
+2 request.COOKIE.get(key)
+
+3 request.session[key]=value
+          '''
+
+            if request.COOKIE.get("sessionid"):
+                更新
+
+                 在django—session表中创建一条记录:
+                   session-key                                     session-data
+                   ltv8zy1kh5lxj1if1fcs2pqwodumr45t                  更新数据
+
+            else:
+
+
+                1 生成随机字符串   ltv8zy1kh5lxj1if1fcs2pqwodumr45t
+                2 response.set_cookie("sessionid",ltv8zy1kh5lxj1if1fcs2pqwodumr45t)
+                3 在django—session表中创建一条记录:
+                   session-key                                     session-data
+                   ltv8zy1kh5lxj1if1fcs2pqwodumr45t       {"is_login":True,"username":"yuan"}
+
+            '''
+
+4 reqeust.session[key]
+
+   '''
+
+    1  request.COOKIE.get("session")  #  ltv8zy1kh5lxj1if1fcs2pqwodumr45t
+
+    2  django-session表中过滤纪录:
+
+       在django—session表中创建一条记录:
+               session-key                                   session-data
+               ltv8zy1kh5lxj1if1fcs2pqwodumr45t       {"is_login":True,"username":"yuan"}
+
+       obj=django—session.objects .filter(session-key=ltv8zy1kh5lxj1if1fcs2pqwodumr45t).first()
+
+    3 obj.session-data.get("is_login")
+    '''
+
+5 request.session.flush()
+
+    '''
+    1 randon_str=request.COOKIE.get("sessionid")
+
+    2 django-session.objects.filter(session-key=randon_str).delete()
+
+    3 response.delete_cookie("sessionid",randon_str)
+
+    '''
