@@ -1,0 +1,423 @@
+
+
+1. 面向对象三大特性，各有什么用处，说说你的理解。
+	继承：继承的功能之一就是用来解决代码重用问题，新建的类可以继承一个或多个父类，父类又可以成为基类或超类，新建的类称为派生类或子类
+	
+	多态：多态指的是一类事物有多种形态
+			(1)增加了程序的灵活性
+			(2)增加了程序额可扩展性
+	
+	封装：封装=‘隐藏’
+		 1：封装数据
+		将数据隐藏起来这不是目的。隐藏起来然后对外提供操作该数据的接口，然后我们可以在接口附加上对该数据操作的限制，以此完成对数据属性操作的严格控制。
+		
+		 2:封装方法：目的是隔离复杂度
+		#明确区分内外，控制外部对隐藏属性的操作行为，隔离复杂度
+
+	
+2. 类的属性和对象的属性有什么区别?
+	class Pople(object):
+    moneny = 1000
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+	zhang = Pople('zhangsan', 18)
+	wang = Pople('wangwu', 20)
+	print(zhang.name)
+	print(wang.name)
+	print(Pople.moneny)
+	print(Pople.name)		#报错
+
+	(1)类的属性: 可以通过  类名.属性名  调用类的属性，但是不能通过这种方式调用对象的属性 
+	(2)对象属性：可以通过  对象名.属性名  调用对象属性和类属性
+	
+
+	
+3.面向过程编程与面向对象编程的区别与应用场景?
+	1. 面向过程： 如果你只是写一些简单的脚本，去做一些一次性任务，用面向过程的方式是极好的
+	
+	2. 面向对象：要处理的任务是复杂的，且需要不断迭代和维护 的， 那还是用面向对象最方便了。
+
+
+	
+4. 类和对象在内存中是如何保存的。
+	以字典的方式保存，代码在类定义阶段便会执行，因而会产生新的名称空间，用来存放类的变量名和函数名，可以通过__dict__查看。
+　　__dict__查出字典，key为属性名，value为属性值
+
+
+
+5. 什么是绑定到对象的方法、绑定到类的方法、解除绑定的函数、如何定义，如何调用，给谁用？有什么特性
+
+	1. 绑定到对象的方法 只要是在类内部定义的，并且没有被任何装饰器修饰过的方法，都是绑定到对象的
+		class Foo:
+			def test(self): #绑定到对象的方法
+				pass
+			def test1(): #也是绑定到对象的方法，只是对象.test1(),会把对象本身自动传给test1，因test1没有参数所以会抛出异常
+				pass
+				
+		绑定到对象，指的是：就给对象去用，
+
+		使用方式：对象.对象的绑定方法()，不用为self传值
+
+		特性：调用时会把对象本身当做第一个参数传给对象的绑定方法
+
+	2. 绑定到类的方法：classmethod 在类内部定义的，并且被装饰器@classmethod修饰过的方法，都是绑定到类的
+		绑定到类，指的是：就类给去用，
+
+		使用方式：类.类的绑定方法()
+
+		特性：调用时会把类本身当做第一个参数传给类的绑定方法
+
+
+	3. 解除绑定的方法：staticmethod
+		既不与类绑定，也不与对象绑定，不与任何事物绑定
+
+		绑定的特性：自动传值（绑定到类的就是自动传类，绑定到对象的就自动传对象）
+
+		解除绑定的特性：不管是类还是对象来调用，都没有自动传值这么一说了
+
+		所以说staticmethod就是相当于一个普通的工具包
+
+
+
+
+6. 使用实例进行 获取、设置、删除 数据, 分别会触发类的什么私有方法
+
+	# item系列就是为了把对象模拟成像字典一样，就可以像字典一样访问
+	class A(object):
+		def __getitem__(self, item):
+			return self.__dict__.get(item)
+
+		def __setitem__(self, key, value):
+			self.__dict__[key] = value
+
+		def __delitem__(self, key):
+			del self.__dict__[key]
+
+	a = A()
+
+	a['key'] = "val"
+	print(a.__dict__)   # {'key': 'val'}
+	b = a["key"]
+	print(b)           # val
+	del a["key"]
+	print(a.__dict__)   # {}	
+		
+		
+		
+7.python中经典类和新式类的区别
+
+　　首先object是所有python类的基类，它提供了一些常见方法（如__str__）的实现。
+
+　　在python2中，没有显式继承object类的类，以及该类的子类都是经典类。 深度优先
+　　python2中，显式地声明继承object类，以及该类的子类都是新式类。     广度优先
+　　在python3中，无论是否继承object，都默认继承object，即python3中所有类均为新式类
+
+ 		
+8.如下示例, 请用面向对象的形式优化以下代码		
+	在没有学习类这个概念时，数据与功能是分离的	
+		
+	class exec:
+		host = '127.0.0.1'
+		port = 3306
+		charset = 'utf-8'
+		db = 'db1'
+		sql = "select * from tb1;"
+		proc_name = "存储过程的名字"
+		def __init__(self, *args):
+			self.args = args
+
+		def connect(self):
+			pass
+
+		def exc(self):
+			if self.args == self.sql:
+				conn = self.connect(self.host, self.port, self.db, self.charset)
+				res = conn.execute(self.sql)
+				return res
+			elif self.args == self.proc_name:
+				conn = self.connect(self.host, self.port, self.db, self.charset, self.proc_name)
+				res = conn.call_proc(self.sql)
+				return res
+
+	ex = exec('select * from tb1;')
+	print(ex.__dict__)  # {'args': ('select * from tb1;',)}	
+		
+		
+9.示例1，现有如下代码，会输出什么：		
+	class People(object):
+		__name = "luffy"
+		__age = 18
+
+	p1 = People()
+	print(p1.__name, p1.__age)
+
+	答：会报错，AttributeError: 'People' object has no attribute '__name'	
+		
+		
+		
+10.示例2, 现有如下代码， 会输出什么：
+
+复制代码
+class People(object):
+
+   def __init__(self):
+       print("__init__")
+
+   def __new__(cls, *args, **kwargs):
+       print("__new__")
+       return object.__new__(cls, *args, **kwargs)
+
+People()
+# 输出：
+__new__
+__init__
+复制代码
+解析：new： 对象的创建，是一个静态方法，第一个参数是cls。(想想也是，不可能是self，对象还没创建，哪来的self)
+　　   init ： 对象的初始化， 是一个实例方法，第一个参数是self。
+　　   call ： 为了将一个类实例当做函数调用，我们需要在类中实现__call__()方法,可以用来改变实例的内部成员的值.
+　　　　先有创建，才有初始化。即先new，而后init。		
+		
+
+		
+		
+11.请简单解释Python中 staticmethod（静态方法）和 classmethod（类方法）, 并分别补充代码执行下列方法。
+
+　　staticmethod（静态方法）：又称为非绑定方法，不与类和对象绑定，就是一个普通方法，不会自动传值。
+　　classmethod(类方法)：是绑定到类的方法，自动将类作为第一个参数传入
+		
+	class A(object):
+    def __init__(self, name):
+        self.name = name
+
+    def foo(self, x):
+       print("executing foo(%s, %s)" % (self,x))
+
+    @classmethod
+    def class_foo(cls, x):
+       print("executing class_foo(%s, %s)" % (cls,x))
+
+    @staticmethod
+    def static_foo(x):
+       print("executing static_foo(%s)" % (x))
+
+	a = A('hqs')
+	a.foo('alex')
+	A.class_foo('alex')
+	a.static_foo('alex')
+	# A.static_foo('alex')
+	"""
+	executing foo(<__main__.A object at 0x10402cc50>, alex)
+	executing class_foo(<class '__main__.A'>, alex)
+	executing static_foo(alex)
+	executing static_foo(alex)
+	"""	
+
+
+
+
+12. 请执行一下代码，解释错误原因，并修正错误。
+
+	class Dog(object):
+
+	   def __init__(self,name):
+		   self.name = name
+
+	   @property
+	   def eat(self):
+		   print(" %s is eating" %self.name)
+
+	d = Dog("ChenRonghua")
+	d.eat()
+	"""
+	TypeError: 'NoneType' object is not callable
+	因为eat方法添加了@property装饰器，将函数属性伪装得像数据属性一样被用户访问。
+	修改方法：去掉d.eat后面的括号即可。
+	"""
+	d.eat
+	# 输出： ChenRonghua is eating
+
+	
+	
+	
+13.下面这段代码的输出结果将是什么？请解释。
+
+	class Parent(object):
+	   x = 1
+
+	class Child1(Parent):
+	   pass
+
+	class Child2(Parent):
+	   pass
+
+	print(Parent.x, Child1.x, Child2.x)
+	Child1.x = 2
+	print(Parent.x, Child1.x, Child2.x)
+	Parent.x = 3
+	print(Parent.x, Child1.x, Child2.x)
+
+	1 1 1 继承自父类的类属性x，所以都一样，指向同一块内存地址
+	1 2 1 更改Child1，Child1的x指向了新的内存地址
+	3 2 3 更改Parent，Parent的x指向了新的内存地址
+
+14.多重继承的执行顺序，请解答以下输出结果是什么？并解释。
+
+	新式类广度优先，super不管当前类的继承关系，会按照实例化的类的MRO列表，一直往后找。
+	G D A B
+	F C B D A
+	[<class '__main__.G'>, <class '__main__.D'>, <class '__main__.A'>, <class '__main__.B'>, <class 'object'>]
+	[<class '__main__.F'>, <class '__main__.C'>, <class '__main__.B'>, <class '__main__.D'>, <class '__main__.A'>, <class 'object'>]
+
+
+
+15.请编写一段符合多态特性的代码.
+
+	import abc
+	class Animal(metaclass=abc.ABCMeta):   # metaclass元类
+		def __init__(self, name):
+			self.name = name
+
+		@abc.abstractclassmethod    # 定义抽象方法，无需实现功能
+		def talk(self):
+			pass
+
+	class People(Animal):
+		def talk(self):
+			print('people %s is talking loudly' % self.name)
+
+	class Pig(Animal):
+		def talk(self):
+			print('pig %s is talking' % self.name)
+
+	class Dog(Animal):
+		def talk(self):
+			print('Dog %s is talking' % self.name)
+
+	def func(animal):
+		animal.talk()
+
+	s = Dog('was')
+	func(s)
+
+
+
+
+17.请写一个小游戏，人狗大站，2个角色，人和狗，游戏开始后，生成2个人，3条狗，互相混战，
+　　人被狗咬了会掉血，狗被人打了也掉血，狗和人的攻击力，具备的功能都不一样。
+　　注意，请按题14领域建模的方式来设计类。
+	class Role(object):
+		def __init__(self, name, life_value, attack_force):
+			self.name = name
+			self.life_value = life_value
+			self.attack_force = attack_force
+
+		def attack(self, obj):
+			obj.life_value -= self.attack_force
+
+	class People(Role):
+		def attack(self, obj):
+			super().attack(obj)
+			#print('%s attack %s' % (self.name, obj.name))
+			print('test')
+
+	class Dog(Role):
+		def attack(self, obj):
+			super().attack(obj)
+			print('%s attack %s' % (self.name, obj.name))
+
+	p1 = Role('alex', 100, 32)
+	d1 = Role('jinba', 40, 40)
+
+	p1.attack(d1)
+	print(d1.life_value)
+
+
+
+20.编写程序, 编写一个学生类, 要求有一个计数器的属性, 统计总共实例化了多少个学生.
+	class Student:
+		__count = 0
+		def __init__(self, name, age):
+			self.name = name
+			self.age = age
+			Student.__count += 1
+
+		@staticmethod
+		def get_count():
+			print("总共实例化 %s 人" % Student.__count)
+
+	stu1 = Student('hqs', 20)
+	stu2 = Student('egon', 19)
+	Student.get_count()
+
+
+21.编写程序, A 继承了 B, 俩个类都实现了 handle 方法, 在 A 中的 handle 方法中调用 B 的 handle 方法
+
+
+	class B:
+		def handle(self):
+			print('from B handle')
+
+	class A(B):
+		def handle(self):
+			print("class A's instance")
+			super().handle()
+
+	a = A()
+	a.handle()
+	"""
+	class A's instance
+	from B handle
+	"""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+		
+		
+		
+		
+		
+		
+		
+		
