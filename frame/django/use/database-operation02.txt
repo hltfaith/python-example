@@ -1,0 +1,138 @@
+ 11.Django数据库操作（查）
+
+django.db.models.query.QuerySet
+1.可迭代
+2.可切片
+
+官方文档：https://docs.djangoproject.com/en/1.9/ref/models/querysets/
+
+ 
+
+相关API
+1.get(**kwargs)
+
+　　解释：返回与筛选条件相匹配的Model对象，返回结果有且只有一个。
+
+　　说明：如果符合条件的对象多于一个抛出MultipleObjectsReturned异常，如果没有找到抛出DoesNotExist异常
+
+　　语法：ModelName.objects.get(itemName=itemNameValue)
+
+　　例子：Author.objects.get(id=1)
+
+2.all()
+
+　　解释：查询所有结果(懒加载)，当查询的时候并不真实发送sql语句，用的时候才会真的去查询
+
+　　语法：ModelName.objects.all()
+
+　　例子：Author.objects.all(id=1)
+
+3.filter(**kwargs)
+
+　　解释：包含了与所给的筛选条件相匹配的QuerySet
+
+　　语法：ModelName.objects.filter(itemName=itemNameValue)
+
+　　例子：Author.objects.filter(id=1)
+
+4.exclude(**kwargs):
+
+　　解释：包含了与所给的筛选件不匹配的QuerySet，于filter正好相反
+
+　　语法：ModelName.objects.exclude(itemName=itemNameValue)
+
+　　例子：Author.objects.filter(id=1)
+
+5.order_by(*fields)
+
+　　解释：对查询结果进行排序
+
+　　语法：ModelName.objects.all().order_by("itemName")
+
+　　例子：Author.objects.all().order_by("id")
+
+6.reverse()
+
+　　解释：对查询结果反向排序
+
+　　语法：ModelName.objects.all().order_by("itemName").reverse()
+
+　　例子：Author.objects.all().order_by("id")
+
+7.distinct()
+
+　　解释：对查询结果去重
+
+　　语法：ModelName.objects.all().distinct()
+
+　　例子：Author.objects.all().distinct()
+
+8.values(*fields)
+
+　　解释：返回一个ValuesQuerySet（一个特殊的QuerySet）
+
+　　说明：运行后得到的不是一系列model的实例对象，而是一个可迭代的字段序列
+
+　　语法：ModelName.objects.filter(name=value).values("name","name")
+
+　　例子：Author.objects.filter(id=1).values("name","id")
+
+9.values_list(*fields)
+
+　　解释：与values相似只是返回的是一个元组
+
+　　语法：ModelName.objects.filter(name=value).values_list("name","name")
+
+　　例子：Author.objects.filter(id=1).values_list("name","id")
+
+10.count()
+
+　　解释：返回数据库中匹配查询的对象数量
+
+　　语法：ModelName.objects.filter(itemName=itemNameValue).count()
+
+　　例子：Author.objects.filter(name="xiaol").count()
+
+11.first()/last()
+
+　　解释：第一条记录/最后一条记录
+
+　　语法：ModelName.objects.filter(itemName=itemNameValue).first()
+
+　　例子：Author.objects.filter(name="xiaol").last()
+
+ 
+
+关联查询：
+
+　　方法：使用两个下划线(__)可以进行关联查询
+
+　　例子：查询AutherDetail的信息
+
+　　语法：AuthorDetail.objects.filter(id="2").values("sex","email", "author__name")
+
+ 
+
+聚合查询：需要引入from django.db.models import *
+
+　　方法：使用aggreagte关键字
+
+　　用法：xxx.filter(查询条件).aggregate(别名=聚合函数('聚合字段'))
+
+　　语法：Author.objects.filter(name="xiaol").aggregate(myCount=Count('id'))
+
+ 
+
+分组查询：需要引入from django.db.models import *
+
+　　方法：使用aggreagte关键字
+
+　　用法：xxx.filter(分组字段).annotate(分组后操作)
+
+　　语法：Author.objects.filter(name="xiaol").annotate(myCount=Count('id'))
+  
+  
+  
+  
+  
+  
