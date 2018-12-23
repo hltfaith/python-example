@@ -22,6 +22,25 @@ print(Person.__dict__) #内置的双下划线方法
   2.类名.静态变量名 直接就可以访问,可以删改
   删除一个静态变量 del 类名.静态变量名
 
-2.
+    
+2. __dir__
+class D:
+    def __func(self):  # 变形为 _D__func
+        print('in func')
+class E(D):
+    def __init__(self):
+        pass
+     
+e = E()
+print(e.__dir__())
+查看当前范围内的变量、方法和定义的类型列表
+执行输出：
+
+['__ge__', '__gt__', '__new__', '__reduce_ex__', '__reduce__', '__dict__', '__le__', '__eq__', '__sizeof__', '__format__', '__getattribute__', '_D__func', '__hash__', '__str__', '__init__', '__module__', '__subclasshook__', '__weakref__', '__repr__', '__lt__', '__setattr__', '__ne__', '__class__', '__dir__', '__delattr__', '__doc__']
+
+
+3.
+
+
 
 
