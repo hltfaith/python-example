@@ -75,9 +75,64 @@ print执行时，实际是调用了__str__方法
 
 
 6.__repr__
+class Teacher:
+    def __init__(self,name,age):
+        self.name = name
+        self.age = age
+    def __str__(self):  # 重新定义内置方法
+        return "Teacher's object %s" % self.name
+ 
+    def __repr__(self):  # 重新定义内置方法，为了做个性化输出
+        return 'repr function %s'%self.name
+ 
+a = Teacher('alex',80)
+b = Teacher('egon',80)
+print(repr(a))  # 打印repr函数的返回值
+print(a.__repr__()) #调用__repr__方法
+print('%r'%a)
+print(str(a)) # 打印str函数的返回值
 
+执行输出：
+repr function alex
+repr function alex
+repr function alex
+Teacher's object alex
 
+repr(obj)的结果和obj.__repr__()是一样的
+'%r'%(obj)的结果和obj.__repr__()是一样的
 
+所有的输出，本质就是向文件中写
+print执行时，是去内部中寻找__str__方法
+所以print没有输出不了的数据，因为每一个对象都有__str__方法
+print一个对象是，打印的是内存地址
+
+repr执行时，其实是调用__repr__方法
+repr(obj)的结果和obj.__repr__()是一样的
+
+概念：
+那么repr是做了归一化设计，接收一个对象。python一切皆对象
+每个对象都有__repr__方法。执行rept，就执行了__repr__方法。
+为什么做归一化设计呢？因为要更接近于面向函数编程
+如果每一个对象，都要对象名.__str__这样执行，太麻烦了
+
+使用函数的方法，要比类名.方法名 使用简单
+当需要使用__str__的场景时找不到 __str__就找__repr__
+当需要使用__repr__的场景时找不到__repr__的时候就找父类的repr
+双下repr是双下str的备胎
+
+总结：
+
+len() obj.__len__() 返回值是一致的
+len() 的结果是依赖 obj.__len__()
+hash() 的结果是依赖 obj.__hash__()
+
+str() 的结果是依赖 obj.__str__()
+print(obj) 的结果是依赖 obj.__str__()
+%s 的结果是依赖 obj.__str__() 语法糖
+repr() 的结果是依赖 obj.__repr__()
+%r 的结果是依赖 obj.__repr__()
+repr是str的备胎
+如果__str__和__repr__同时存在， 一定是选择repr
 
 
 
