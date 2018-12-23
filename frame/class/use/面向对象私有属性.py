@@ -135,9 +135,24 @@ repr是str的备胎
 如果__str__和__repr__同时存在， 一定是选择repr
 
 
+7.__format__
+format执行，就是调用了__format__方法
+class A:
+    def __init__(self,name,school,addr):
+        self.name = name
+        self.school = school
+        self.addr = addr
+ 
+    def __format__(self, format_spec):
+        #format_spec = '{obj.name}-{obj.addr}-{obj.school}'
+        return format_spec.format(obj=self) #此行的format_spec等同于上面一行
+ 
+a = A('大表哥','oldboy','沙河')
+format_spec = '{obj.name}-{obj.addr}-{obj.school}'
+print(format(a,format_spec))
 
-
-
+执行输出：
+大表哥-沙河-oldboy
 
 
 
