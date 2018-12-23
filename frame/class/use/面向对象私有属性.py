@@ -155,7 +155,19 @@ print(format(a,format_spec))
 大表哥-沙河-oldboy
 
 
+8.__call__
+对象后面加括号，触发执行。
+注：构造方法的执行是由创建对象触发的，即：对象 = 类名() ；而对于 __call__ 方法的执行是由对象后加括号触发的，即：对象() 或者 类()()
+class Teacher():
+    def __call__(self):
+        print(123)
+t = Teacher()
+t()  # 对象名() 相当于调用类内置的__call__
+Teacher()()  #效果同上
 
+执行输出：
+123
+123
 
 
 
