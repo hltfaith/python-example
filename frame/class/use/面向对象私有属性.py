@@ -39,7 +39,54 @@ print(e.__dir__())
 ['__ge__', '__gt__', '__new__', '__reduce_ex__', '__reduce__', '__dict__', '__le__', '__eq__', '__sizeof__', '__format__', '__getattribute__', '_D__func', '__hash__', '__str__', '__init__', '__module__', '__subclasshook__', '__weakref__', '__repr__', '__lt__', '__setattr__', '__ne__', '__class__', '__dir__', '__delattr__', '__doc__']
 
 
-3.
+3.__len__ len(obj)
+obj对应的类中含有__len__方法，len(obj)才能正常执行
+
+4.__hash__ hash(obj)  
+
+只有实现了__hash__方法，hash(ojb)才能正常执行
+hash是加加速寻址
+print(hash('str'))
+执行输出： 8500378945365862541
+
+hash之后的数字，就是内存地址
+hash之后，将value存储在对应的内存地址中
+
+字典占用的内存相对的比，较用空间换时间
+list占用的内存比较少，但是没有字典快
+
+过一分钟，再次查看，发现数据都变了
+-8079646337729346465
+
+5.__str__
+改变对象的字符串显示
+class A:
+    def __init__(self,*args):
+        self.args = list(args)
+    def __str__(self):
+        return '[%s]' % (','.join([str(i) for i in self.args]))
+li = A(1,2,3,4,5)
+print(li)  # 输出的结果是obj.__str__()的结果<br>print(str(li))  # 结果同上<br>print('%s'%li)  # 结果同上
+执行输出：
+[1,2,3,4,5]
+[1,2,3,4,5]
+每一个对象，都有__str__方法
+print执行时，实际是调用了__str__方法
+
+
+6.__repr__
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
