@@ -1,2 +1,18 @@
-Socket是应用层与TCP/IP协议族通信的中间软件抽象层，它是一组接口。在设计模式中，Socket其实就是一个门面模式，它把复杂的TCP
+
+  Socket是应用层与TCP/IP协议族通信的中间软件抽象层，它是一组接口。在设计模式中，Socket其实就是一个门面模式，它把复杂的TCP
 /IP协议族隐藏在Socket接口后面，对用户来说，一组简单的接口就是全部，让Socket去组织数据，以符合指定的协议。
+
+socket参数的详解
+socket.socket(family=AF_INET,type=SOCK_STREAM,proto=0,fileno=None)
+
+创建socket对象的参数说明：
+family	    地址系列应为AF_INET(默认值),AF_INET6,AF_UNIX,AF_CAN或AF_RDS。
+            （AF_UNIX 域实际上是使用本地 socket 文件来通信）
+type	      套接字类型应为SOCK_STREAM(默认值),SOCK_DGRAM,SOCK_RAW或其他SOCK_常量之一。
+SOCK_STREAM 是基于TCP的，有保障的（即能保证数据正确传送到对方）面向连接的SOCKET，多用于资料传送。 
+SOCK_DGRAM  是基于UDP的，无保障的面向消息的socket，多用于在网络上发广播信息。
+proto	      协议号通常为零,可以省略,或者在地址族为AF_CAN的情况下,协议应为CAN_RAW或CAN_BCM之一。
+fileno	    如果指定了fileno,则其他参数将被忽略,导致带有指定文件描述符的套接字返回。
+与socket.fromfd()不同,fileno将返回相同的套接字,而不是重复的。
+这可能有助于使用socket.close()关闭一个独立的插座。
+最主要用到的参数是type
