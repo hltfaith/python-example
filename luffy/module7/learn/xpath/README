@@ -1,0 +1,20 @@
+  1.网页的解析方式
+        1)xpath(简单)
+        2)正则(最难)
+        3)css(需要懂网页的css)
+        4)bs4(比xpath难一点点)
+
+    2.xpath的基本用法
+        1）环境准备：首先安装火狐浏览器(版本不能太高)
+                    在浏览器右上角三个横杠-->附加组件-->获取附加组件-->搜索firebug和firepath两个插件安装，如果提示重启,点击那个重启即可
+        2）验证环境是否配置成功：右键点击网页-->Inspect in FirePath  看是否能点击成功
+        3）基本操作
+            //元素标签名    例如：//div 功能是查找网页内的所有div
+            //元素标签名[@属性名=’具体内容‘]   例如：//div[@class='box'] 功能是查找存在属性@class='box'的div
+            //元素标签名[第几个]     例如：//div[@class="box"][2] 查找符合条件的第二个div
+            //元素1/元素2/元素3...   例如：//ul/li/div/a/img  查找ul下的li下的div下的a下的img标签
+            //元素1/@属性名          例如：//ul/li/div/a/img/@src  查找ul下的li下的div下的a下的img标签的src属性
+            //元素/text()   例如：//a/text() 获取a标签下的文本(一级文本)
+            //元素//text()  例如：//div[@class='box']//text() 获取class=‘box’的div下的所有文本
+            //元素[contains(@属性名，'相关属性值')]   例如：//li[contains(@class,'zhangsan')]  查找class中包含zhangsan的div
+            //*[@属性='值']  例如：//*[@name='lisi'] 查找name为lisi的元素 
