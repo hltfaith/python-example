@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% if title %}
+    <title>{{ title }} - blog</title>
+    {% else %}
+    <title>Welcome to demo blog</title>
+    {% endif %}
+
+</head>
+<body>
+
+    <h1>Hello, {{ user.nickname }}!</h1>
+    {% for post in posts %}
+    <p>{{ post.author.nickname }} says: <b>{{ post.body }}</b></p>
+    {% endfor %}
+</body>
+</html>
