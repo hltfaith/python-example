@@ -1,0 +1,16 @@
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
+<script>
+    $('#search').click(function () {
+        $.ajax({
+            type: 'GET',
+            url: 'http://192.168.1.106:7777/test_post/aa',
+            dataType: 'jsonp', //希望服务器返回json格式的数据
+            jsonp: "callback",
+            jsonpCallback: "successCallback",//回调方法
+            success: function (data) {
+                console.log(data);
+            }
+
+        });
+    });
+</script>
