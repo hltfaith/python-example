@@ -268,7 +268,10 @@ print(b)
 第二次执行时,cls.__instance 不是None，返回私有静态属性
 
  
+12.__add__
 
+
+13.__radd__
 
 
 
