@@ -1,1 +1,1 @@
-truct模块执行Python值和C结构体之间的转换，从而形成Python字节对象。
+struct模块执行Python值和C结构体之间的转换，从而形成Python字节对象。
