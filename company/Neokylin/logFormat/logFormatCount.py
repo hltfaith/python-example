@@ -10,10 +10,6 @@ import time
 import re
 import os
 
-# audit_dir = r'D:\share\log-北信源\var-log\audit'
-# outfile = r'D:\share\log-北信源'
-# messages_dir = r'D:\share\log-北信源'
-
 def auditFormat(audit_dir, outfile):
 
     '''
