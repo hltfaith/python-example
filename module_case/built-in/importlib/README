@@ -1,0 +1,2 @@
+Python提供了importlib包作为标准库的一部分。目的就是提供Python中import语句的实现（以及__import__函数）。
+另外，importlib允许程序员创建他们自定义的对象，可用于引入过程（也称为importer）。
