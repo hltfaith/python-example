@@ -1,8 +1,15 @@
 
+os, sys 模块
+
+回调函数
+
+闭包
 
 装饰器
 
 生成器 yeild
+
+functools
 
 python 魔法糖
 
@@ -15,5 +22,9 @@ selenium
 phantomJS
 
 Python 虚拟机
-
-
+	https://www.cnblogs.com/webber1992/p/6597166.html
+	
+Python内存管理
+Pymalloc	
+	https://blog.csdn.net/qinbaby/article/details/23201567
+	https://pypi.org/project/pytracemalloc/
