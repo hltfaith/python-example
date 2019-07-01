@@ -58,4 +58,61 @@ Post和get区别？
 	POST请求：POST请求会把请求的数据放置在HTTP请求包的包体中。上面的item=bandsaw就是实际的传输数据。
 	因此，GET请求的数据会暴露在地址栏中，而POST请求则不会。
 
+cookie 和session 的区别？
+	1、cookie数据存放在客户的浏览器上，session数据放在服务器上。
+	2、cookie不是很安全，别人可以分析存放在本地的COOKIE并进行COOKIE欺骗考虑到安全应当使用session。
+	3、session会在一定时间内保存在服务器上。当访问增多，会比较占用服务器的性能考虑到减轻服务器性能方面，应当使用COOKIE。
+	4、单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie。
+	5、建议：
+	   将登陆信息等重要信息存放为SESSION
+	   其他信息如果需要保留，可以放在COOKIE中
+
+创建一个简单tcp服务器需要的流程
+	1.socket创建一个套接字
+	2.bind绑定ip和port
+	3.listen使套接字变为可以被动链接
+	4.accept等待客户端的链接
+	5.recv/send接收发送数据
+
+twisted框架
+
+########### Mysql ########### 
+
+你常用的mysql引擎有哪些？各引擎间有什么区别？
+
+主要 MyISAM 与 InnoDB 两个引擎，其主要区别如下：
+
+一、InnoDB 支持事务，MyISAM 不支持，这一点是非常之重要。事务是一种高
+
+级的处理方式，如在一些列增删改中只要哪个出错还可以回滚还原，而 MyISAM
+
+就不可以了；
+
+二、MyISAM 适合查询以及插入为主的应用，InnoDB 适合频繁修改以及涉及到
+
+安全性较高的应用；
+
+三、InnoDB 支持外键，MyISAM 不支持；
+
+四、MyISAM 是默认引擎，InnoDB 需要指定；
+
+五、InnoDB 不支持 FULLTEXT 类型的索引；
+
+六、InnoDB 中不保存表的行数，如 select count(*) from table 时，InnoDB；需要
+
+扫描一遍整个表来计算有多少行，但是 MyISAM 只要简单的读出保存好的行数即
+
+可。注意的是，当 count(*)语句包含 where 条件时 MyISAM 也需要扫描整个表；
+
+七、对于自增长的字段，InnoDB 中必须包含只有该字段的索引，但是在 MyISAM
+
+表中可以和其他字段一起建立联合索引；
+
+八、清空整个表时，InnoDB 是一行一行的删除，效率非常慢。MyISAM 则会重
+
+建表；
+
+九、InnoDB 支持行锁（某些情况下还是锁整表，如 update table set a=1 where
+
+user like '%lee%'
 
